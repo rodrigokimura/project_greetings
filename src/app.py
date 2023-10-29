@@ -1,4 +1,6 @@
 import random
+from os import getenv
+from random import choice
 
 from pyfiglet import Figlet
 from termcolor import cprint
@@ -271,12 +273,13 @@ FONTS = [
 
 class App:
     def greet_random(self):
-        color = random.choice(COLORS)
-        self.greet(random.choice(FONTS), color)
+        color = choice(COLORS)
+        self.greet(choice(FONTS), color)
 
     def greet(self, font: str, color: str | None = None):
         f = Figlet(font=font)
-        cprint(f.renderText("Hello World"), color)
+        text = getenv("GREETING", "Hello World")
+        cprint(f.renderText(text), color)
 
 
 if __name__ == "__main__":
